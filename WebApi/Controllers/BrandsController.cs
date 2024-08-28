@@ -1,4 +1,5 @@
 ﻿using Application.Features.Brands.Commands.Create;
+using Application.Features.Brands.Queries.GetById;
 using Application.Features.Brands.Queries.GetList;
 using Core.Application.Requests;
 using Microsoft.AspNetCore.Http;
@@ -23,5 +24,14 @@ namespace WebApi.Controllers
 			var response = await Mediator.Send(query);
 			return Ok(response);
 		}
+
+		[HttpGet("id")]
+		public async Task<IActionResult> GetById([FromRoute]Guid id)
+		{
+			var query = new GetByIdBrandQuery { Id = id };
+			var response = await Mediator.Send(query);
+			return Ok(response);
+		}
+
 	}
 }
