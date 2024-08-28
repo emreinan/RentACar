@@ -32,6 +32,7 @@ public class GetListBrandQuery : IRequest<GetListResponse<GetListBrandListItemDt
 				index: request.PageRequest.PageIndex,
 				size: request.PageRequest.PageSize,
 				cancellationToken: cancellationToken
+				//withDeleted: true
 				);
 
 			var mappedBrands = _mapper.Map<GetListResponse<GetListBrandListItemDto>>(brands);
