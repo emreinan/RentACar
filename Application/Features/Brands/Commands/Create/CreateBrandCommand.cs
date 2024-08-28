@@ -1,4 +1,5 @@
 ﻿using Application.Services.Repositories;
+using AutoMapper;
 using Domain.Entities;
 using MediatR;
 using System;
@@ -16,10 +17,12 @@ public class CreateBrandCommand : IRequest<CreatedBrandResponse>
 	class CreateBrandCommandHandler : IRequestHandler<CreateBrandCommand, CreatedBrandResponse>
 	{
 		private readonly IBrandRepository _brandRepository;
+		private readonly IMapper _mapper;
 
-		public CreateBrandCommandHandler(IBrandRepository brandRepository)
+		public CreateBrandCommandHandler(IBrandRepository brandRepository, IMapper mapper)
 		{
 			_brandRepository = brandRepository;
+			_mapper = mapper;
 		}
 
 		public async Task<CreatedBrandResponse> Handle(CreateBrandCommand request, CancellationToken cancellationToken)
@@ -27,11 +30,8 @@ public class CreateBrandCommand : IRequest<CreatedBrandResponse>
 			var brand = new Brand(Guid.NewGuid(), request.Name);
 			await _brandRepository.AddAsync(brand);
 
-			return new CreatedBrandResponse
-			{
-				Id = brand.Id,
-				Name = brand.Name
-			};
+			return _mapper.Map<CreatedBrandResponse>(brand);
+
 		}
 	}
 }
