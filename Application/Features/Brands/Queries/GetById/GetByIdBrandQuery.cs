@@ -34,8 +34,3 @@ public class GetByIdBrandQuery : IRequest<GetByIdBrandResponse>
 
 }
 
-public class GetByIdBrandResponse
-{
-	public int Id { get; set; }
-	public string Name { get; set; }
-}
