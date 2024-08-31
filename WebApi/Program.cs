@@ -1,4 +1,5 @@
 using Application;
+using Core.CrossCuttingConcerns.Exceptions.Extensions;
 using Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,11 +13,14 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment()) // Development oratmýnda 
 {
 	app.UseSwagger();
 	app.UseSwaggerUI();
 }
+
+//if (app.Environment.IsProduction()) // Production ortamýnda
+	app.ConfigureCustomExceptionMiddleware();
 
 app.UseHttpsRedirection();
 
