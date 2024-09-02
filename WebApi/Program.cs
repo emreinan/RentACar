@@ -8,7 +8,8 @@ builder.Services.AddControllers();
 builder.Services.AddApplicationServices();
 builder.Services.AddPersistenceServices(builder.Configuration);
 
-builder.Services.AddDistributedMemoryCache();
+builder.Services.AddDistributedMemoryCache(); // InMemory Cache
+builder.Services.AddStackExchangeRedisCache(options => options.Configuration = "localhost:6379"); // Redis Cache
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
